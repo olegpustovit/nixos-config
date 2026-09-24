@@ -38,6 +38,11 @@ in
     DOTNET_CLI_TELEMETRY_OPTOUT = "1";
     DOTNET_NOLOGO = "1";
     GOBIN = "$HOME/.local/bin";
+  } // lib.optionalAttrs pkgs.stdenv.isLinux {
+    # Fail automatic browser launches on Linux, including gh auth's opener.
+    # GH_BROWSER takes precedence over gh's browser config and BROWSER.
+    BROWSER = "${pkgs.coreutils}/bin/false";
+    GH_BROWSER = "${pkgs.coreutils}/bin/false";
   } // lib.optionalAttrs isMultipassHome {
     SNOWBEAR_MULTIPASS = "1";
   };
