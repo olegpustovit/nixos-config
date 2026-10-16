@@ -38,7 +38,7 @@
     };
 
     nvimconf = {
-      url = "github:OlegHQ/nvim-config?ref=dev";
+      url = "github:olegpustovit/nvim-config?ref=dev";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

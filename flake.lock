@@ -5,13 +5,13 @@
       "locked": {
         "lastModified": 1782762684,
         "narHash": "sha256-l+kyx2CcsG5BdSsDk2pIjmZme6E9OwheoJ4XhtUrGxQ=",
-        "owner": "OlegHQ",
+        "owner": "olegpustovit",
         "repo": "autoconf.nvim",
         "rev": "5a87cf0b40b43705357db892a1b07a40d418363c",
         "type": "github"
       },
       "original": {
-        "owner": "OlegHQ",
+        "owner": "olegpustovit",
         "repo": "autoconf.nvim",
         "type": "github"
       }
@@ -151,13 +151,13 @@
       "locked": {
         "lastModified": 1788196811,
         "narHash": "sha256-Wdef+rLidfL5RK2d+XL/04BECo3Z80KZxP1oenrUddw=",
-        "owner": "OlegHQ",
+        "owner": "olegpustovit",
         "repo": "nvim-config",
         "rev": "f5c5eaedcb2eb126ad0ec2c40dfc472100b81cba",
         "type": "github"
       },
       "original": {
-        "owner": "OlegHQ",
+        "owner": "olegpustovit",
         "ref": "dev",
         "repo": "nvim-config",
         "type": "github"
@@ -182,13 +182,13 @@
       "locked": {
         "lastModified": 1777464016,
         "narHash": "sha256-zLI296bXeLI+J6j1mz6uDRFBs97sMwhzQf2280LbIXE=",
-        "owner": "OlegHQ",
+        "owner": "olegpustovit",
         "repo": "themekit.nvim",
         "rev": "d023de449b4d906154975b3d180cfff70f75ba3c",
         "type": "github"
       },
       "original": {
-        "owner": "OlegHQ",
+        "owner": "olegpustovit",
         "repo": "themekit.nvim",
         "type": "github"
       }
