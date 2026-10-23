@@ -1,0 +1,29 @@
+Common targets:
+  switch                 Apply normal host configuration
+  test                   Dry-run host configuration
+  build                  Build host configuration
+  check                  Validate flake
+  clean                  Remove local result symlink
+  prune                  Remove old Nix generations and garbage
+  PRUNE=1                Also prune after switch
+  WITH_NVIM=1            Manage ~/.config/nvim with Home Manager (default: 0)
+  NIX_FALLBACK=1         Build from source if substitutes fail
+  NIX_EXTRA_FLAGS=...    Pass extra flags to nix commands
+
+Multipass VM targets:
+  multipass-bootstrap    Create main if missing, provision it, and load Home Manager on first boot
+  multipass-up           Alias for non-destructive bootstrap
+  multipass-reset        Destructively recreate the VM
+  multipass-shell        Open fish in /home/snowbear
+  multipass-host-shell   Open fish in synced repo inside the VM
+  multipass-root-shell   Open root shell for apt/systemd work
+  multipass-nix-cache    Repair Nix cache config inside the VM
+  multipass-hm-switch    Switch Home Manager in existing VM
+  multipass-gc           Prune Nix store/generations inside VM
+  multipass-check        Smoke-test persistent VM
+  multipass-tailscale-up Authenticate or update Tailscale in the VM
+  multipass-disk-grow    Increase VM disk to MULTIPASS_DISK
+  NAME=work              Use a separate persistent VM
+  MULTIPASS_BRIDGE=en1   Override bridged network
+  MULTIPASS_MOUNT_HOME=1 Opt into mounting /Users/snowbear
+  MULTIPASS_BOOTSTRAP_HM=always  Re-run HM during bootstrap

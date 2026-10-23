@@ -1,106 +1,34 @@
-# snowbear Nix Config
+# Personal Nix configuration
 
-Personal Nix configuration for macOS, Linux Home Manager, and persistent Multipass Ubuntu VMs.
+Host and user configuration for nix-darwin on macOS, Home Manager on Linux and persistent Ubuntu VMs managed with Multipass. These files are tailored to the declared user and hosts; they are not a general NixOS installer.
 
-## Main Commands
+![Actual Home Manager derivation evaluation](docs/demo/evaluation.png)
 
-```bash
-make switch
-make test
-make build
-make check
+The [local check](docs/demo/README.md) evaluated the Linux ARM64 Home Manager activation derivation. It did not build or activate it, change a profile or create a VM.
+
+## Inspect before applying
+
+With Nix installed and flakes enabled:
+
+```sh
+git clone https://github.com/olegpustovit/nixos-config.git
+cd nixos-config
+WITH_NVIM=0 nix eval --impure --no-write-lock-file .#homeConfigurations.snowbear-aarch64.activationPackage.drvPath
+make help
 ```
 
-On macOS these target nix-darwin. On Linux they target Home Manager.
+The exact evaluation passed with Nix 2.34.7 on Linux ARM64. It can download locked inputs. The managed user is `snowbear`; adapt the user and host definitions before using this as your own configuration.
 
-By default Home Manager installs Neovim and its third-party plugins without
-managing `~/.config/nvim`, so that directory can be a user-owned clone of
-`nvim-config` with `autoconf.nvim` and `themekit.nvim` as submodules. To have
-Home Manager manage the config and both custom plugins immutably, enable it for
-the switch:
+## Apply an intended configuration
 
-```bash
-make switch WITH_NVIM=1
-```
+`make build` builds the host configuration. `make switch` applies it. On macOS those target nix-darwin; on Linux they target Home Manager. Read [Makefile](Makefile) for user, architecture and privilege handling before running either. Plain `make` defaults to switch.
 
-## Multipass Workflow
+`WITH_NVIM=1` opts into the managed Neovim configuration. It is off by default, so a user-owned editor checkout can remain separate. Inspect the pinned editor/plugin inputs and their integration gates before enabling it; this capture did not evaluate that mode.
 
-The VM workflow is persistent by default:
+## Outputs and layout
 
-```bash
-make multipass-bootstrap
-multipass shell
-make multipass-shell
-make multipass-hm-switch
-make multipass-check
-```
+The flake declares `darwinConfigurations.mac`, `homeConfigurations.snowbear-x86_64`, `homeConfigurations.snowbear-aarch64` and the ARM64 Linux Home Manager package/app outputs. Modules live under [darwin](darwin/) and [home](home/); output builders live under [nix](nix/).
 
-`multipass-bootstrap` creates the `main` VM only if it does not already exist, makes it the Multipass primary instance, provisions Ubuntu packages, installs Nix, Docker, SSH, mosh, and Tailscale, and runs Home Manager on first creation. It does not delete `/home/snowbear`, `apt` installs, systemd unit state, Docker state, Tailscale state, or other VM-local state.
+[Multipass instructions](docs/multipass.md) describe the persistent-VM workflow. Bootstrap preserves an existing VM; reset deletes and recreates it. No Multipass, Tailscale login, macOS rebuild, package closure build or host activation was tested for the evaluation capture.
 
-Plain `multipass shell` and `multipass shell main` start through Multipass' default `ubuntu` account, then delegate interactive shells into the `snowbear` Home Manager account in `/home/snowbear`. For raw `ubuntu` debugging, use `multipass exec main -- env SNOWBEAR_MULTIPASS_NO_DELEGATE=1 bash -li`.
-
-The macOS home directory is not mounted by default. Home Manager switches sync a host repo snapshot into `/home/snowbear/src/nixos-config` and build from that VM-local path. Use `MULTIPASS_MOUNT_HOME=1` only when you explicitly want to mount `/Users/snowbear`.
-
-`multipass-hm-switch` first repairs the in-VM Nix cache config if needed, then builds this flake's Home Manager activation package inside the existing VM. Pass `WITH_NVIM=1` to manage the Neovim config in the VM. User config updates can apply without resetting the VM.
-
-Multipass launches with an additional bridged interface by default. Override the bridge with:
-
-```bash
-make multipass-bootstrap MULTIPASS_BRIDGE=en1
-```
-
-Tailscale runs inside each VM with kernel TUN. Authenticate interactively:
-
-```bash
-make multipass-tailscale-up
-```
-
-Or provision with an auth key:
-
-```bash
-make multipass-bootstrap MULTIPASS_TAILSCALE_AUTH_KEY=tskey-auth-...
-```
-
-After authentication, use the VM's MagicDNS name or Tailscale IP for SSH and mosh:
-
-```bash
-ssh snowbear@main
-ssh snowbear@work
-```
-
-Multipass disk size can be increased later, but not decreased:
-
-```bash
-make multipass-disk-grow MULTIPASS_DISK=120G
-```
-
-Use explicit reset only when a clean VM is desired:
-
-```bash
-make multipass-reset
-```
-
-Use separate VMs by overriding `NAME`:
-
-```bash
-make multipass-bootstrap NAME=personal
-make multipass-bootstrap NAME=work
-```
-
-If you opt into `MULTIPASS_MOUNT_HOME=1`, the `/Users/snowbear` mount is subject to macOS privacy prompts. The default no-mount workflow avoids those prompts.
-
-Compatibility `container-*` make targets still exist, but they call Multipass targets and do not use the old CLI.
-
-## Layout
-
-```text
-flake.nix          public flake outputs
-nix/               overlays and output builders
-darwin/            nix-darwin host modules
-home/              Home Manager modules and app config
-multipass/         Ubuntu VM provisioning and in-VM scripts
-mk/multipass.mk    Multipass VM lifecycle targets
-.agents/skills/    repo-local agent skills
-```
-
-See `AGENTS.md` and `.agents/skills/nix-apple-container` before changing Multipass or Nix workflow code.
+[Agent guidance](AGENTS.md) · [MIT license](LICENSE)

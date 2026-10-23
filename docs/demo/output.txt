@@ -1,0 +1,11 @@
+Actual read-only Home Manager evaluation
+
+Command: WITH_NVIM=0 nix eval --impure --no-write-lock-file
+  .#homeConfigurations.snowbear-aarch64.activationPackage.drvPath
+
+Derivation: home-manager-generation
+System: aarch64-linux
+Outputs: out
+
+Evaluation succeeded. No build or activation was performed.
+No host profile, VM, service or network account was changed.
