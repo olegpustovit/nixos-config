@@ -6,15 +6,25 @@
       unstable = inputs.nixpkgs-unstable.legacyPackages.${prev.stdenv.hostPlatform.system};
     in {
       vimPlugins = unstable.vimPlugins;
-      # ponytail: drop this override when nixpkgs-unstable ships Bun >= 1.4.2.
+      # Keep Bun >= 1.4.4 until unstable catches up; newer versions pass through.
       bun =
-        if prev.stdenv.hostPlatform.system == "aarch64-linux" then
+        if prev.lib.versionOlder unstable.bun.version "1.4.4" then
           unstable.bun.overrideAttrs (_: {
-            version = "1.4.2";
-            src = final.fetchurl {
-              url = "https://github.com/oven-sh/bun/releases/download/bun-v1.4.2/bun-linux-aarch64.zip";
-              hash = "sha256-VDKLvC2cjgyfiSxUTWbFeoO4QTnjSQnl7oF1jxrI/ac=";
-            };
+            version = "1.4.4";
+            src = final.fetchurl ({
+              aarch64-linux = {
+                url = "https://github.com/oven-sh/bun/releases/download/bun-v1.4.4/bun-linux-aarch64.zip";
+                hash = "sha256-uqa7NvUdblhWHgK76oJQOKnfRU9nPW13bou/hvjHhQ4=";
+              };
+              aarch64-darwin = {
+                url = "https://github.com/oven-sh/bun/releases/download/bun-v1.4.4/bun-darwin-aarch64.zip";
+                hash = "sha256-wkDX8My5DCY6hJ/NsJt+5iYw2SE0jtaq/ahrnVd7xRA=";
+              };
+              x86_64-linux = {
+                url = "https://github.com/oven-sh/bun/releases/download/bun-v1.4.4/bun-linux-x64-baseline.zip";
+                hash = "sha256-4ERutVmVdy65iUvrrppr42jZhai5Jx7hJEhvmUbu3XY=";
+              };
+            }.${prev.stdenv.hostPlatform.system});
           })
         else
           unstable.bun;

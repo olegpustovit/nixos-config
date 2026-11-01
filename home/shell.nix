@@ -147,6 +147,7 @@ in {
         fishTheme
         "set -g SHELL ${pkgs.fish}/bin/fish"
         "fish_add_path $HOME/.local/bin"
+        ''fish_add_path "${config.home.homeDirectory}/.cache/.bun/bin"''
         "command -sq npm; and npm set prefix ~/.npm-global 2>/dev/null; and fish_add_path -g $HOME/.npm-global/bin"
         "fish_add_path $HOME/.dotnet/tools"
       ]));
