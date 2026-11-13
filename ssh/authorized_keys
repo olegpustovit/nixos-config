@@ -1,0 +1,10 @@
+# Personal SSH clients. Public keys only; private keys stay on their devices.
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOVC0VTBfVzk0ElDjh60lEKplDgE3MyFcE1fPUSyTNo1 snowbear@kyiv-grid-exp
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL3s1rb+KBnuc39S68J5DhGJCkvLuuYQ3yxOF9FIOBJE snowbear@kyiv-win-1
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOkWI0eCP61JCdIGwMj6VpdBibxNEvYG/ClaK25lEsTk snowbear@mac-mini
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKN4V3QpDzi67Z2qxKTuXSyBWqEgAQsAc30hAyGOPpnK snowbear@macbook-air
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOd/cTX/wcxWZxbhtmCO3SQrON/5H0p0u9z7px3qJvL+ snowbear@main
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICs3uVn5CHkRVrGMEQAB+Z4ihxn3sneyXIBf+ur1ty+G snowbear@oracle-vm
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIApDs7vCPVk1yutF2Pbhilawjj6RZju2rHLH7no4v4Zs blink-iphone
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFU2e8mQg3cKjd04InjIQU3dsEvkQbVHNH6m6LIA7cd2 user@iphone
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDsrfOKQN3XVQNdhNn/Vgya1fANQ08ozjLf00PpvJyrB snowbear@gigacomp

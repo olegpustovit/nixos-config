@@ -17,7 +17,7 @@
         push.autoSetupRemote = true;
       } // lib.optionalAttrs config.snowbear.git.setIdentity {
         user.name = "Oleg Pustovit";
-        user.email = "me@opustovit.com";
+        user.email = "oleg@olegpustovit.com";
       };
     };
   };

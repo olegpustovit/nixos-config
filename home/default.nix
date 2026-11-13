@@ -13,6 +13,7 @@ in
     (import ./tmux.nix { inherit inputs; })
     ./editor.nix
     ./git.nix
+    ./ssh.nix
     ./terminal.nix
     ./packages.nix
   ];
